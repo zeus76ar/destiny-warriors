@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <meta name="description" content="Destiny Warriors - Juego">
+        <meta name="author" content="AB software">
+        <meta name="keywords" content="juego, web, lucha, vuejs, w3css">
+
+        <title>Juego - Destiny Warriors</title>
+
+        <link rel="stylesheet" href="vendor/w3css/w3.min.css">
+        <link rel="stylesheet" 
+        href="vendor/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- development version, includes helpful console warnings -->
+        <!-- <script src="vendor/vuejs/2.5.17/vue-dev.js"></script> -->
+        <!-- production version, optimized for size and speed -->
+        <script src="vendor/vuejs/2.5.17/vue.js"></script>
+    </head>
+    
+    <body>
+        <div id="app">
+            <vue-barratop
+            v-bind:titulo="datos_app.titulo"
+            v-bind:menus_extra="menus_extra">
+            </vue-barratop>
+
+            <div class="w3-main w3-light-gray">
+                <header class="w3-container w3-padding-small w3-center">
+                    <span class="fa fa-info"></span> Tutorial
+                </header>
+
+                <div class="w3-container w3-padding-24 w3-black">
+                    <h3 class="w3-center">Tutorial</h3>
+
+                    <div class="w3-margin-top w3-center">
+                        <vue-repaudio
+                        archivo_mp4="assets/audio/rise.m4a"
+                        archivo_ogg="assets/audio/rise.ogg"
+                        titulo="Rise"
+                        interprete="The glitch mob, Mako and The word alive">
+                        </vue-repaudio>
+                    </div>
+
+                    <p class="w3-large">
+                        Antes de comenzar, debes prepararte. Por eso, tu primer 
+                        combate sera de entrenamiento, para conocer la mecanica del juego.
+                        Tu oponente sera Lowell si elegiste a Kiara o viceversa.
+                        <br><br>
+                        Para combatir debes elegir alguna de las opciones: "atacar", 
+                        "defender" y "tecnica especial" en 
+                        cada turno del combate. Con cada ataque, defensa o especial, 
+                        gastas tu "Energia" (tecnica especial consume más). 
+                        Para recuperar energia, debes elegir la opcion "Defender".
+                        <br><br>
+                        Lo otro a tener en cuenta es la "Salud". Cada ataque que recibas 
+                        reducira tu salud de acuerdo al daño del ataque. Lo mismo para tu 
+                        oponente. Para recuperar salud, debes elegir la opcion "Defender".
+                        <br><br>
+                        La "Tecnica Especial" se puede usar una vez que has recibido la 
+                        cantidad especifica de ataques. Para c/personaje es distinta.
+                        <br><br>
+                        Como veras, la clave es atacar y defenderte de acuerdo a como 
+                        vaya el combate. Para ganar un combate, 
+                        se deben cumplir ciertas condiciones. Para ver cuales son, 
+                        elige la opcion "Condiciones".
+                        <br><br>
+                        Cuando ganes y avances al siguiente capitulo, automáticamente 
+                        subiras de nivel.
+                        Si pierdes, tendras que repetir el combate.
+                    </p>
+                    
+                    <div class="w3-row w3-margin-top">
+                        <div class="w3-quarter">
+                            &nbsp;
+                        </div>
+                        <div class="w3-half">
+                            <img src="assets/img/fondos/castillo_rey_milos.jpg" 
+                            alt="Castillo Rey Milos" class="w3-image">
+                        </div>
+                    </div>
+                        
+                    <p class="w3-margin-top w3-center w3-large">
+                        El entrenamiento se hara en el castillo del rey Milos, donde 
+                        Kiara y Lowell esperan la orden para partir en su mision.
+                    </p>
+
+                    <div class="w3-margin-top w3-center">
+                        <a href="combate.html" 
+                        class="w3-button w3-round-large w3-white"
+                        v-on:click="guardarDatos()">
+                            <span class="fa fa-shield"></span>
+                            Ir al combate
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.w3-main -->
+
+            <vue-barrabot 
+            v-bind:info="'&copy; ' + datos_app.año + ' - ' + datos_app.autor">
+            </vue-barrabot>
+        </div>
+        <!-- /#app -->
+
+        <script src="assets/js/lib/mis-clases/caracteres.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/almacen.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/texto_numero.class.min.js"></script>
+        
+        <script src="assets/js/lib/general.class.min.js"></script>
+
+        <script src="assets/js/data/app.dat.min.js"></script>
+
+        <script src="assets/js/componentes/vue-barratop.min.js"></script>
+        <script src="assets/js/componentes/vue-barrabot.min.js"></script>
+        <script src="assets/js/componentes/vue-repaudio.min.js"></script>
+
+        <script src="assets/js/tutorial.min.js"></script>
+    </body>
+</html>

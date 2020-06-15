@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <meta name="description" content="Destiny Warriors - Juego">
+        <meta name="author" content="AB software">
+        <meta name="keywords" content="juego, web, lucha, vuejs, w3css">
+
+        <title>Juego - Destiny Warriors</title>
+
+        <link rel="stylesheet" href="vendor/w3css/w3.min.css">
+        <link rel="stylesheet" 
+        href="vendor/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- development version, includes helpful console warnings -->
+        <!-- <script src="vendor/vuejs/2.5.17/vue-dev.js"></script> -->
+        <!-- production version, optimized for size and speed -->
+        <script src="vendor/vuejs/2.5.17/vue.js"></script>
+    </head>
+    
+    <body>
+        <div id="app">
+            <vue-barratop
+            v-bind:titulo="datos_app.titulo"
+            v-bind:menus_extra="menus_extra">
+            </vue-barratop>
+
+            <div class="w3-main w3-light-gray">
+                <header class="w3-container w3-padding-small w3-center">
+                    <span class="fa fa-image"></span> Galeria
+                </header>
+
+                <div class="w3-container w3-padding-24 w3-black">
+                    <h3 class="w3-center">Galeria de Personajes</h3>
+                    
+                    <div class="w3-container w3-margin-top w3-center">
+                        <a class="w3-button w3-small" 
+                        v-bind:class="ver_ficha_imagen ? clase_bot_atr_base : clase_bot_atr_activo"
+                        v-on:click.prevent="verAtributos()">
+                            <span class="fa fa-info-circle"></span>
+                            Ver Atributos
+                        </a>
+                    </div>
+
+                    <div class="w3-row-padding w3-margin-top"
+                    v-if="datos_almacen.capitulo >= 0">
+                        <div class="w3-third w3-center" 
+                        v-for="(personaje, index) in personajes">
+                            <vue-fichajugador
+                            v-bind:jugador="personaje"
+                            v-bind:index="index.toString()"
+                            v-bind:elegido="index"
+                            v-bind:ver_imagen="ver_ficha_imagen"
+                            v-show="indiceValido(1, index)">
+                            </vue-fichajugador>
+                        </div>
+                        <!-- /.w3-third -->
+                    </div>
+                    <!-- /.w3-row-padding -->
+
+                    <br>
+                    
+                    <div class="w3-row-padding w3-margin-top"
+                    v-if="datos_almacen.capitulo >= 2">
+                        <div class="w3-third w3-center" 
+                        v-for="(personaje, index) in personajes">
+                            <vue-fichajugador
+                            v-bind:jugador="personaje"
+                            v-bind:index="index.toString()"
+                            v-bind:elegido="index"
+                            v-bind:ver_imagen="ver_ficha_imagen"
+                            v-show="indiceValido(2, index)">
+                            </vue-fichajugador>
+                        </div>
+                        <!-- /.w3-third -->
+                    </div>
+                    <!-- /.w3-row-padding -->
+
+                    <br>
+
+                    <div class="w3-row-padding w3-margin-top"
+                    v-if="datos_almacen.capitulo >= 5">
+                        <div class="w3-third w3-center" 
+                        v-for="(personaje, index) in personajes">
+                            <vue-fichajugador
+                            v-bind:jugador="personaje"
+                            v-bind:index="index.toString()"
+                            v-bind:elegido="index"
+                            v-bind:ver_imagen="ver_ficha_imagen"
+                            v-show="indiceValido(3, index)">
+                            </vue-fichajugador>
+                        </div>
+                        <!-- /.w3-third -->
+                    </div>
+                    <!-- /.w3-row-padding -->
+                </div>
+                <!-- /.w3-container -->
+            </div>
+            <!-- /.w3-main -->
+
+            <vue-barrabot 
+            v-bind:info="'&copy; ' + datos_app.año + ' - ' + datos_app.autor">
+            </vue-barrabot>
+        </div>
+        <!-- /#app -->
+
+        <script src="assets/js/lib/mis-clases/caracteres.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/almacen.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/texto_numero.class.min.js"></script>
+
+        <script src="assets/js/lib/general.class.min.js"></script>
+
+        <script src="assets/js/data/app.dat.min.js"></script>
+        <script src="assets/js/data/personajes.dat.min.js"></script>
+
+        <script src="assets/js/componentes/vue-barratop.min.js"></script>
+        <script src="assets/js/componentes/vue-barrabot.min.js"></script>
+        <script src="assets/js/componentes/vue-fichajugador.min.js"></script>
+        
+        <script src="assets/js/galeria.min.js"></script>
+    </body>
+</html>

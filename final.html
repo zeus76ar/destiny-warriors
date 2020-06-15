@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <meta name="description" content="Destiny Warriors - Juego">
+        <meta name="author" content="AB software">
+        <meta name="keywords" content="juego, web, lucha, vuejs, w3css">
+
+        <title>Juego - Destiny Warriors</title>
+
+        <link rel="stylesheet" href="vendor/w3css/w3.min.css">
+        <link rel="stylesheet" 
+        href="vendor/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- development version, includes helpful console warnings -->
+        <!-- <script src="vendor/vuejs/2.5.17/vue-dev.js"></script> -->
+        <!-- production version, optimized for size and speed -->
+        <script src="vendor/vuejs/2.5.17/vue.js"></script>
+    </head>
+    
+    <body>
+        <div id="app">
+            <vue-barratop
+            v-bind:titulo="datos_app.titulo"
+            v-bind:menus_extra="menus_extra">
+            </vue-barratop>
+
+            <div class="w3-main w3-light-gray">
+                <header class="w3-container w3-padding-small w3-center">
+                    <span class="fa fa-info"></span> Final
+                </header>
+
+                <div class="w3-container w3-padding-24 w3-black">
+                    <h3 class="w3-center">Final</h3>
+                    
+                    <h5 class="w3-center">
+                        Dificultad: {{ datos_almacen.dificultad }}
+                    </h5>
+
+                    <div class="w3-margin-top w3-center">
+                        <vue-repaudio
+                        archivo_mp4="assets/audio/legends_never_die.m4a"
+                        archivo_ogg="assets/audio/legends_never_die.ogg"
+                        titulo="Legends never die"
+                        interprete="Against the current">
+                        </vue-repaudio>
+                    </div>
+
+                    <p class="w3-large">
+                        Luego de varias batallas, has logrado el objetivo: derrotar a los 
+                        demonios, que habian contaminado con magia oscura el corazon del 
+                        Gran Arbol. Con esto, luego de algunos dias, el arbol recuperará 
+                        su energia natural y el equilibrio en las tierras de Askaroth 
+                        volvera a la normalidad.
+                    </p>
+                    
+                    <div class="w3-row w3-margin-top">
+                        <div class="w3-col l1 m1">
+                            &nbsp;
+                        </div>
+
+                        <div class="w3-col l4 m4">
+                            <img class="w3-image" 
+                            src="assets/img/personajes/lumara.jpg" alt="Lumara">
+                        </div>
+
+                        <div class="w3-col l2 m2">
+                            &nbsp;
+                        </div>
+
+                        <div class="w3-col l4 m4">
+                            <img src="assets/img/fondos/old_sage.jpg" 
+                            alt="The old sage" class="w3-image">
+                        </div>
+                    </div>
+                        
+                    <p class="w3-margin-top w3-center w3-large">
+                        Ahora que el lider ha sido derrotado, los pocos demonios que 
+                        quedan son facilmente vencidos por los guerreros elfos.
+                    </p>
+
+                    <div class="w3-row w3-margin-top">
+                        <div class="w3-quarter">
+                            &nbsp;
+                        </div>
+
+                        <div class="w3-half">
+                            <img class="w3-image" 
+                            v-bind:src="personajes[datos_almacen.ind_jugador].imagen" 
+                            v-bind:alt="personajes[datos_almacen.ind_jugador].nombre">
+                        </div>
+                    </div>
+
+                    <p class="w3-margin-top w3-center w3-large">
+                        Solo queda regresar al castillo para informar esta victoria 
+                        al Rey Milos y festejar! Por ahora...
+                    </p>
+                </div>
+            </div>
+            <!-- /.w3-main -->
+
+            <vue-barrabot 
+            v-bind:info="'&copy; ' + datos_app.año + ' - ' + datos_app.autor">
+            </vue-barrabot>
+        </div>
+        <!-- /#app -->
+
+        <script src="assets/js/lib/mis-clases/caracteres.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/almacen.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/texto_numero.class.min.js"></script>
+
+        <script src="assets/js/lib/general.class.min.js"></script>
+        
+        <script src="assets/js/data/app.dat.min.js"></script>
+        <script src="assets/js/data/personajes.dat.min.js"></script>
+
+        <script src="assets/js/componentes/vue-barratop.min.js"></script>
+        <script src="assets/js/componentes/vue-barrabot.min.js"></script>
+        <script src="assets/js/componentes/vue-repaudio.min.js"></script>
+        
+        <script src="assets/js/final.min.js"></script>
+    </body>
+</html>

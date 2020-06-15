@@ -1,0 +1,7 @@
+.fondo_imagen {
+    background-color: #000000;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}

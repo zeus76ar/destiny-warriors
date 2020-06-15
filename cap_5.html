@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <meta name="description" content="Destiny Warriors - Juego">
+        <meta name="author" content="AB software">
+        <meta name="keywords" content="juego, web, lucha, vuejs, w3css">
+
+        <title>Juego - Destiny Warriors</title>
+
+        <link rel="stylesheet" href="vendor/w3css/w3.min.css">
+        <link rel="stylesheet" 
+        href="vendor/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- development version, includes helpful console warnings -->
+        <!-- <script src="vendor/vuejs/2.5.17/vue-dev.js"></script> -->
+        <!-- production version, optimized for size and speed -->
+        <script src="vendor/vuejs/2.5.17/vue.js"></script>
+    </head>
+    
+    <body>
+        <div id="app">
+            <vue-barratop
+            v-bind:titulo="datos_app.titulo"
+            v-bind:menus_extra="menus_extra">
+            </vue-barratop>
+
+            <div class="w3-main w3-light-gray">
+                <header class="w3-container w3-padding-small w3-center">
+                    <span class="fa fa-info"></span> 
+                    {{ capitulos[datos_almacen.capitulo].titulo }}
+                </header>
+
+                <div class="w3-container w3-padding-24 w3-black">
+                    <h3 class="w3-center">
+                        {{ capitulos[datos_almacen.capitulo].titulo }}
+                    </h3>
+
+                    <h5 class="w3-center">
+                        {{ capitulos[datos_almacen.capitulo].lugar }}
+                    </h5>
+
+                    <div class="w3-margin-top w3-center">
+                        <vue-repaudio
+                        archivo_mp4="assets/audio/legends_never_die.m4a"
+                        archivo_ogg="assets/audio/legends_never_die.ogg"
+                        titulo="Legends never die"
+                        interprete="Against the current">
+                        </vue-repaudio>
+                    </div>
+
+                    <p class="w3-large">
+                        Una vez derrotada Schala, puedes avanzar hasta la entrada del Gran Arbol.
+                        Mientras avanzas, sientes que alguien te sigue, pero cuando miras alrededor,
+                        no logras ver a nadie.
+                        <br><br>
+                        La entrada al Gran Arbol ya esta a la vista, sientes que la batalla 
+                        final se acerca. pero antes de dar otro paso, sientes un zumbido y 
+                        te muevas 2 pasos hacia atras, lo que te permite esquivar 
+                        una flecha certera.
+                        <br><br>
+                        Este es la señal que un nuevo enemigo aparece...
+                    </p>
+                    
+                    <div class="w3-row w3-margin-top">
+                        <div class="w3-quarter">
+                            &nbsp;
+                        </div>
+                        <div class="w3-half">
+                            <img src="assets/img/fondos/bosque_norte_interior.jpg" 
+                            alt="Bosque Norte interior" class="w3-image">
+                        </div>
+                    </div>
+                        
+                    <p class="w3-margin-top w3-center w3-large">
+                        - Luna: Maldicion! Estuvo cerca! Si no te hubieras movido, 
+                        esto hubiera acabado rapido. Pero ahora sera mas divertido!
+                        <br>
+                        <img v-bind:src="personajes[capitulos[datos_almacen.capitulo].oponente].imagen" 
+                        v-bind:alt="personajes[capitulos[datos_almacen.capitulo].oponente].nombre" 
+                        style="width: 10%;">
+                    </p>
+
+                    <div class="w3-margin-top w3-center">
+                        <a href="combate.html" 
+                        class="w3-button w3-round-large w3-white"
+                        v-on:click="guardarDatos()">
+                            <span class="fa fa-shield"></span>
+                            Ir al combate
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.w3-main -->
+
+            <vue-barrabot 
+            v-bind:info="'&copy; ' + datos_app.año + ' - ' + datos_app.autor">
+            </vue-barrabot>
+        </div>
+        <!-- /#app -->
+
+        <script src="assets/js/lib/mis-clases/caracteres.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/almacen.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/texto_numero.class.min.js"></script>
+
+        <script src="assets/js/lib/general.class.min.js"></script>
+
+        <script src="assets/js/data/app.dat.min.js"></script>
+        <script src="assets/js/data/capitulos.dat.min.js"></script>
+        <script src="assets/js/data/personajes.dat.min.js"></script>
+
+        <script src="assets/js/componentes/vue-barratop.min.js"></script>
+        <script src="assets/js/componentes/vue-barrabot.min.js"></script>
+        <script src="assets/js/componentes/vue-repaudio.min.js"></script>
+
+        <script src="assets/js/capitulos.min.js"></script>
+    </body>
+</html>

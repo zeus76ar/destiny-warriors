@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <meta name="description" content="Destiny Warriors - Juego">
+        <meta name="author" content="AB software">
+        <meta name="keywords" content="juego, web, lucha, vuejs, w3css">
+
+        <title>Juego - Destiny Warriors</title>
+
+        <link rel="stylesheet" href="vendor/w3css/w3.min.css">
+        <link rel="stylesheet" 
+        href="vendor/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- development version, includes helpful console warnings -->
+        <!-- <script src="vendor/vuejs/2.5.17/vue-dev.js"></script> -->
+        <!-- production version, optimized for size and speed -->
+        <script src="vendor/vuejs/2.5.17/vue.js"></script>
+    </head>
+    
+    <body>
+        <div id="app">
+            <vue-barratop
+            v-bind:titulo="datos_app.titulo"
+            v-bind:menus_extra="menus_extra">
+            </vue-barratop>
+
+            <div class="w3-main w3-light-gray">
+                <header class="w3-container w3-padding-small w3-center">
+                    <span class="fa fa-user"></span> Seleccionar
+                </header>
+
+                <div class="w3-container w3-padding-24 w3-black" 
+                v-if="personaje_elegido < 0">
+                    <h3 class="w3-center">Selecciona tu personaje para comenzar a jugar.</h3>
+
+                    <div class="w3-row-padding w3-margin-top">
+                        <div class="w3-col l1 m1">
+                            &nbsp;
+                        </div>
+                        <!-- /.w3-col -->
+
+                        <div class="w3-col l4 m4 w3-center w3-margin-bottom">
+                            <vue-fichajugador
+                            v-bind:jugador="personajes[0]"
+                            index="0"
+                            v-bind:elegido="personaje_elegido"
+                            v-bind:ver_imagen="ver_ficha_imagen">
+                            </vue-fichajugador>
+
+                            <div class="w3-margin-top">
+                                <a href="#" 
+                                class="w3-button"
+                                v-bind:class="esElegido(0) ? clase_bot_sel_activo : clase_bot_sel_base"
+                                v-on:click.prevent="elegir(0)">
+                                    <span class="fa fa-check"></span> 
+                                    Seleccionar
+                                </a>
+                            </div>
+                        </div>
+                        <!-- /.w3-col -->
+
+                        <div class="w3-col l2 m2 w3-center w3-margin-bottom">
+                            <a class="w3-button" 
+                            v-bind:class="ver_ficha_imagen ? clase_bot_atr_base : clase_bot_atr_activo"
+                            v-on:click.prevent="verAtributos()">
+                                <span class="fa fa-info-circle"></span>
+                                Ver Atributos
+                            </a>
+                        </div>
+                        <!-- /.w3-col -->
+
+                        <div class="w3-col l4 m4 w3-center">
+                            <vue-fichajugador
+                            v-bind:jugador="personajes[1]"
+                            index="1"
+                            v-bind:elegido="personaje_elegido"
+                            v-bind:ver_imagen="ver_ficha_imagen">
+                            </vue-fichajugador>
+    
+                            <div class="w3-margin-top">
+                                <a href="#" 
+                                class="w3-button"
+                                v-bind:class="esElegido(1) ? clase_bot_sel_activo : clase_bot_sel_base"
+                                v-on:click.prevent="elegir(1)">
+                                    <span class="fa fa-check"></span> 
+                                    Seleccionar
+                                </a>
+                            </div>
+                        </div>
+                        <!-- /.w3-col -->
+                    </div>
+                    <!-- /.w3-row-padding -->
+                </div>
+                <!-- /.w3-container -->
+
+                <div class="w3-container w3-padding-24 w3-black" 
+                v-else>
+                    <div class="w3-row w3-margin-bottom">
+                        <div class="w3-third">&nbsp;</div>
+                        <div class="w3-third w3-center">
+                            <h3 class="">Personaje elegido</h3>
+                            <h4 class="">{{ personajes[personaje_elegido].nombre }}</h4>
+                            <img v-bind:src="personajes[personaje_elegido].imagen" 
+                            alt="Imagen" style="width: 120px;">
+                        </div>
+                        <div class="w3-third">&nbsp;</div>
+                    </div>
+
+                    <h3 class="w3-center w3-margin-top">Selecciona la dificultad.</h3>
+
+                    <div class="w3-row-padding w3-margin-top">
+                        <div class="w3-half w3-center w3-margin-bottom">
+                            <div class="w3-border w3-padding-small">
+                                <h3>Normal</h3>
+                            </div>
+                            
+                            <div class="w3-border w3-padding-small">
+                                Los oponentes tendran tu mismo nivel.
+                            </div>
+
+                            <div class="w3-margin-top">
+                                <a href="#" 
+                                class="w3-button"
+                                v-bind:class="(dificultad == 'normal') ? 
+                                clase_bot_sel_activo : clase_bot_sel_base"
+                                v-on:click.prevent="dificultad = 'normal'">
+                                    <span class="fa fa-check"></span> 
+                                    Seleccionar
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="w3-half w3-center">
+                            <div class="w3-border w3-padding-small">
+                                <h3>Dificil</h3>
+                            </div>
+                            
+                            <div class="w3-border w3-padding-small">
+                                Los oponentes tendran mas nivel.
+                            </div>
+
+                            <div class="w3-margin-top">
+                                <a href="#" 
+                                class="w3-button"
+                                v-bind:class="(dificultad == 'dificil') ? 
+                                clase_bot_sel_activo : clase_bot_sel_base"
+                                v-on:click.prevent="dificultad = 'dificil'">
+                                    <span class="fa fa-check"></span> 
+                                    Seleccionar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w3-center w3-black w3-padding-16"
+                v-show="personaje_elegido >= 0 && dificultad !== ''">
+                    <a href="#" 
+                    class="w3-button w3-round-large w3-white"
+                    v-on:click.prevent="personaje_elegido = -1">
+                        <span class="fa fa-chevron-left"></span>
+                        Volver a Personaje
+                    </a>
+                    
+                    <a href="#" 
+                    class="w3-button w3-round-large w3-white"
+                    v-on:click.prevent="jugar()">
+                        <span class="fa fa-gamepad"></span>
+                        Jugar!
+                    </a>
+                </div>
+            </div>
+            <!-- /.w3-main -->
+
+            <vue-barrabot 
+            v-bind:info="'&copy; ' + datos_app.año + ' - ' + datos_app.autor">
+            </vue-barrabot>
+        </div>
+        <!-- /#app -->
+        
+        <script src="assets/js/lib/mis-clases/caracteres.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/almacen.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/texto_numero.class.min.js"></script>
+        
+        <script src="assets/js/lib/general.class.min.js"></script>
+        
+        <script src="assets/js/data/app.dat.min.js"></script>
+        <script src="assets/js/data/personajes.dat.min.js"></script>
+
+        <script src="assets/js/componentes/vue-barratop.min.js"></script>
+        <script src="assets/js/componentes/vue-barrabot.min.js"></script>
+        <script src="assets/js/componentes/vue-fichajugador.min.js"></script>
+
+        <script src="assets/js/seleccionar.min.js"></script>
+    </body>
+</html>

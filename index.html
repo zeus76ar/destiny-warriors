@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <meta name="description" content="Destiny Warriors - Juego">
+        <meta name="author" content="AB software">
+        <meta name="keywords" content="juego, web, lucha, vuejs, w3css">
+
+        <title>Juego - Destiny Warriors</title>
+
+        <link rel="stylesheet" href="vendor/w3css/w3.min.css">
+        <link rel="stylesheet" 
+        href="vendor/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <link rel="stylesheet" href="assets/css/main.min.css">
+
+        <!-- development version, includes helpful console warnings -->
+        <!-- <script src="vendor/vuejs/2.5.17/vue-dev.js"></script> -->
+        <!-- production version, optimized for size and speed -->
+        <script src="vendor/vuejs/2.5.17/vue.js"></script>
+    </head>
+    
+    <body>
+        <div id="app">
+            <vue-barratop
+            v-bind:titulo="datos_app.titulo"
+            v-bind:menus_extra="menus_extra">
+            </vue-barratop>
+            
+            <div class="w3-main w3-light-gray">
+                <header class="w3-container w3-padding-small w3-center">
+                    <span class="fa fa-home"></span> Home
+                </header>
+                
+                <div class="w3-container w3-padding-24 w3-text-white fondo_imagen"
+                style="background-image: url('assets/img/fondos/old_sage.jpg');">
+                    <h1 class="w3-center">{{ datos_app.titulo }}</h1>
+
+                    <h3 class="w3-center">Acepta tu destino y lucha hasta el final.</h3>
+
+                    <div class="w3-row-padding w3-margin-top">
+                        <div class="w3-third w3-margin-bottom">
+                            <img class="w3-image w3-grayscale-min w3-border w3-padding" 
+                            v-bind:src="personajes[0].imagen" 
+                            v-bind:alt="personajes[0].nombre"> 
+                        </div>
+
+                        <div class="w3-third">
+                            <div class="w3-padding-small w3-black w3-opacity-min w3-center">
+                                {{ datos_app.descripcion }}
+                                <br>
+                                {{ datos_app.powerby }}
+                                <br>
+                                Version: {{ datos_app.version }}.{{ datos_app.subversion }}
+                            </div>
+                            
+                            <div class="w3-center w3-margin-top w3-margin-bottom">
+                                <a href="intro.html" 
+                                class="w3-button w3-round-large w3-white">
+                                    <span class="fa fa-plus"></span>
+                                    Nuevo
+                                </a>
+
+                                <div class="w3-margin-top" 
+                                v-show="hay_datos">
+                                    <a href="#" 
+                                    class="w3-button w3-round-large w3-white"
+                                    v-on:click.prevent="continuar()">
+                                        <span class="fa fa-chevron-right"></span>
+                                        Continuar
+                                    </a>
+                                </div>
+
+                                <div class="w3-margin-top" 
+                                v-show="hay_datos">
+                                    <a href="galeria.html" 
+                                    class="w3-button w3-round-large w3-white">
+                                        <span class="fa fa-image"></span>
+                                        Galeria
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w3-third w3-margin-bottom">
+                            <img class="w3-image w3-grayscale-min w3-border w3-padding" 
+                            v-bind:src="personajes[1].imagen" 
+                            v-bind:alt="personajes[1].nombre"> 
+                        </div>
+                    </div>
+                    <!-- /w3-row-padding -->
+                </div>
+                <!-- /.w3-container -->
+            </div>
+            <!-- /.w3-main -->
+
+            <vue-barrabot 
+            v-bind:info="'&copy; ' + datos_app.año + ' - ' + datos_app.autor">
+            </vue-barrabot>
+        </div>
+        <!-- /#app -->
+
+        <script src="assets/js/lib/mis-clases/caracteres.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/almacen.class.min.js"></script>
+        <script src="assets/js/lib/mis-clases/texto_numero.class.min.js"></script>
+
+        <script src="assets/js/lib/general.class.min.js"></script>
+
+        <script src="assets/js/data/app.dat.min.js"></script>
+        <script src="assets/js/data/personajes.dat.min.js"></script>
+        
+        <script src="assets/js/componentes/vue-barratop.min.js"></script>
+        <script src="assets/js/componentes/vue-barrabot.min.js"></script>
+        
+        <script src="assets/js/index.min.js"></script>
+    </body>
+</html>
