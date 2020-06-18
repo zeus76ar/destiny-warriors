@@ -1,6 +1,7 @@
-# destiny-warriors
+# Destiny Warriors
 Juego de lucha desarrollado con Vue.js, W3CSS y HTML5
 
+![Demo](screenshot.jpg "Demo")
 
 ## Comenzando 🚀
 
