@@ -50,248 +50,245 @@
                     </h5>
 
                     <div class="w3-row-padding w3-margin-top">
-                            <div class="w3-third w3-center">
-                                <div class="w3-border w3-padding-small w3-black">
-                                    <strong>Jugador</strong>
+                        <div class="w3-third w3-center">
+                            <div class="w3-row w3-border w3-black">
+                                <div class="w3-quarter w3-padding-small">
+                                    Salud
                                 </div>
 
-                                <vue-fichajugador
-                                v-bind:jugador="jugador"
-                                v-bind:index="datos_almacen.ind_jugador.toString()"
-                                v-bind:elegido="datos_almacen.ind_jugador"
-                                v-bind:ver_imagen="ver_ficha_imagen">
-                                </vue-fichajugador>
+                                <div class="w3-rest">
+                                    <div class="w3-light-grey">
+                                        <div class="w3-padding-small w3-red" 
+                                        v-bind:style="{ 'width': jugador_combate.salud_porc + '%' }">
+                                            {{ jugador_combate.salud }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- /.w3-col -->
-    
-                            <div class="w3-third w3-center">
-                                <div class="w3-black w3-opacity-min w3-border">
-                                    <div class="w3-row">
-                                        <div class="w3-half">
-                                            <a class="w3-button w3-block w3-small"
-                                            v-bind:class="(mostrar_condiciones == 'block') ? 'w3-purple' : 'w3-white'"
-                                            v-on:click.prevent="verCondiciones(true)">
-                                                <span class="fa fa-info-circle"></span>
-                                                Condiciones
-                                            </a>
-                                        </div>
+                            <!-- /.w3-row -->
+                            <div class="w3-row w3-border w3-black">
+                                <div class="w3-quarter w3-padding-small">
+                                    Energia
+                                </div>
 
-                                        <div class="w3-half">
-                                            <a class="w3-button w3-block w3-small" 
-                                            v-bind:class="ver_ficha_imagen ? clase_bot_atr_base : clase_bot_atr_activo"
-                                            v-on:click.prevent="verAtributos()">
-                                                <span class="fa fa-info-circle"></span>
-                                                Atributos
-                                            </a>
+                                <div class="w3-rest">
+                                    <div class="w3-light-grey">
+                                        <div class="w3-padding-small w3-blue" 
+                                        v-bind:class="jugador.energia.color"
+                                        v-bind:style="{ 'width': jugador_combate.energia_porc + '%' }">
+                                            {{ jugador_combate.energia }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.w3-row -->
+
+                            <vue-fichajugador
+                            v-bind:jugador="jugador"
+                            v-bind:index="datos_almacen.ind_jugador.toString()"
+                            v-bind:elegido="datos_almacen.ind_jugador"
+                            v-bind:ver_imagen="ver_ficha_imagen">
+                            </vue-fichajugador>
+                        </div>
+                        <!-- /.w3-third -->
+
+                        <div class="w3-third w3-center">
+                            <div class="w3-black w3-opacity-min w3-border">
+                                <div class="w3-row">
+                                    <div class="w3-half">
+                                        <a class="w3-button w3-block w3-small"
+                                        v-bind:class="(mostrar_condiciones == 'block') ? 'w3-purple' : 'w3-white'"
+                                        v-on:click.prevent="verCondiciones(true)">
+                                            <span class="fa fa-info-circle"></span>
+                                            Condiciones
+                                        </a>
+                                    </div>
+
+                                    <div class="w3-half">
+                                        <a class="w3-button w3-block w3-small" 
+                                        v-bind:class="ver_ficha_imagen ? clase_bot_atr_base : clase_bot_atr_activo"
+                                        v-on:click.prevent="verAtributos()">
+                                            <span class="fa fa-info-circle"></span>
+                                            Atributos
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="w3-black w3-opacity-min w3-border">
+                                <div class="w3-row">
+                                    <div class="w3-half w3-padding-small">
+                                        <strong>Turnos:</strong> {{ turnos }}
+                                    </div>
+
+                                    <div class="w3-half w3-padding-small">
+                                        <strong>Dificultad:</strong> 
+                                        {{ datos_almacen.dificultad }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w3-opacity-min">
+                                &nbsp;
+                            </div>
+                            
+                            <div class="w3-black w3-opacity-min">
+                                <div class="w3-padding-small w3-border">
+                                    <strong>Jugador - Estado</strong>
+                                </div>
+
+                                <div class="w3-padding"
+                                v-if="! jugador_combate.ganador && 
+                                ! jugador_combate.perdedor">
+                                    <a class="w3-bar-item w3-button w3-deep-orange"
+                                    v-on:click.prevent="setAccion('atacar')">
+                                        Atacar
+                                    </a>
+
+                                    <a class="w3-bar-item w3-button w3-teal"
+                                    v-on:click.prevent="setAccion('defender')">
+                                        Defender
+                                    </a>
+
+                                    <a class="w3-bar-item w3-button w3-indigo"
+                                    v-on:click.prevent="setAccion('especial')">
+                                        Especial
+                                    </a>
+                                </div>
+
+                                <div class="w3-padding"
+                                v-else>
+                                    <a class="w3-button w3-teal"
+                                    v-on:click.prevent="seguir()" 
+                                    v-show="jugador_combate.ganador">
+                                        <span class="fa fa-shield"></span>
+                                        Siguiente
+                                    </a>
+        
+                                    <a class="w3-button w3-white"
+                                    v-on:click.prevent="volver()" 
+                                    v-show="jugador_combate.perdedor">
+                                        <span class="fa fa-chevron-left"></span>
+                                        Volver
+                                    </a>
+                                </div>
+
+                                <div class="w3-row w3-border">
+                                    <div class="w3-quarter w3-padding-small">
+                                        Tec. Esp.
+                                    </div>
+
+                                    <div class="w3-quarter w3-padding-small w3-light-gray">
+                                        {{ jugador_combate.ataques_recibidos }} / 
+                                        {{ jugador.tecnica_especial.ataques_activar }}
+                                    </div>
+
+                                    <div class="w3-quarter w3-padding-small">
+                                        U. accion
+                                    </div>
+
+                                    <div class="w3-quarter w3-padding-small w3-light-gray">
+                                        <div v-if="jugador_combate.ultima_accion != 'especial'">
+                                            {{ jugador_combate.ultima_accion }}
+                                        </div>
+                                        <div v-else>
+                                            <img style="width: 22%;"
+                                            v-bind:src="jugador.tecnica_especial.imagen"
+                                            v-bind:alt="jugador.tecnica_especial.nombre">
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div class="w3-black w3-opacity-min w3-border">
-                                    <div class="w3-row">
-                                        <div class="w3-half w3-padding-small">
-                                            <strong>Turnos:</strong> {{ turnos }}
-                                        </div>
+                                <div class="w3-border w3-padding-small w3-white">
+                                    <strong>{{ jugador_combate.mensaje }}</strong>
+                                </div>
+                            </div>
 
-                                        <div class="w3-half w3-padding-small">
-                                            <strong>Dificultad:</strong> 
-                                            {{ datos_almacen.dificultad }}
-                                        </div>
-                                    </div>
+                            <div class="w3-opacity-min">
+                                &nbsp;
+                            </div>
+
+                            <div class="w3-black w3-opacity-min">
+                                <div class="w3-padding-small w3-border">
+                                    <strong>Oponente - Estado</strong>
                                 </div>
                                 
-                                <div class="w3-black w3-opacity-min">
-                                    <div class="w3-padding-small w3-border">
-                                        <strong>Jugador - Estado</strong>
+                                <div class="w3-row w3-border">
+                                    <div class="w3-quarter w3-padding-small">
+                                        Tec. Esp.
                                     </div>
                                     
-                                    <div class="w3-row w3-border">
-                                        <div class="w3-quarter w3-padding-small">
-                                            Salud
-                                        </div>
-
-                                        <div class="w3-rest">
-                                            <div class="w3-light-grey">
-                                                <div class="w3-padding-small w3-red" 
-                                                v-bind:style="{ 'width': jugador_combate.salud_porc + '%' }">
-                                                    {{ jugador_combate.salud }}
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="w3-quarter w3-padding-small w3-light-gray">
+                                        {{ oponente_combate.ataques_recibidos }} / 
+                                        {{ oponente.tecnica_especial.ataques_activar }}
                                     </div>
 
-                                    <div class="w3-row w3-border">
-                                        <div class="w3-quarter w3-padding-small">
-                                            Energia
-                                        </div>
-    
-                                        <div class="w3-rest">
-                                            <div class="w3-light-grey">
-                                                <div class="w3-padding-small w3-blue" 
-                                                v-bind:class="jugador.energia.color"
-                                                v-bind:style="{ 'width': jugador_combate.energia_porc + '%' }">
-                                                    {{ jugador_combate.energia }}
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="w3-quarter w3-padding-small">
+                                        U. accion
                                     </div>
 
-                                    <div class="w3-row w3-border">
-                                        <div class="w3-quarter w3-padding-small">
-                                            Tec. Esp.
+                                    <div class="w3-quarter w3-light-gray w3-padding-small">
+                                        <div 
+                                        v-if="oponente_combate.accion != 'especial'">
+                                            {{ oponente_combate.accion }}
                                         </div>
-
-                                        <div class="w3-rest w3-padding-small w3-light-gray">
-                                            {{ jugador_combate.ataques_recibidos }} / 
-                                            {{ jugador.tecnica_especial.ataques_activar }}
+                                        <div v-else>
+                                            <img style="width: 22%;"
+                                            v-bind:src="oponente.tecnica_especial.imagen"
+                                            v-bind:alt="oponente.tecnica_especial.nombre">
                                         </div>
-                                    </div>
-
-                                    <div class="w3-row w3-border">
-                                        <div class="w3-quarter w3-padding-small">
-                                            U. accion
-                                        </div>
-                                        
-                                        <div class="w3-rest w3-padding-small w3-light-gray">
-                                            {{ jugador_combate.ultima_accion }}
-                                            <br>
-                                            <img style="width: 25%;"
-                                            v-bind:src="jugador.tecnica_especial.imagen"
-                                            v-bind:alt="jugador.tecnica_especial.nombre"
-                                            v-show="jugador_combate.ultima_accion == 'especial'">
-                                        </div>
-                                    </div>
-
-                                    <div class="w3-row w3-border">
-                                        <div class="w3-quarter w3-padding-small">
-                                            Accion
-                                        </div>
-
-                                        <div class="w3-rest w3-light-gray">
-                                            <div class="w3-bar"
-                                            v-show="! jugador_combate.ganador && 
-                                            ! jugador_combate.perdedor">
-                                                <a class="w3-bar-item w3-button w3-deep-orange w3-small"
-                                                v-on:click.prevent="setAccion('atacar')">
-                                                    Atacar
-                                                </a>
-
-                                                <a class="w3-bar-item w3-button w3-teal w3-small"
-                                                v-on:click.prevent="setAccion('defender')">
-                                                    Defender
-                                                </a>
-
-                                                <a class="w3-bar-item w3-button w3-indigo w3-small"
-                                                v-on:click.prevent="setAccion('especial')">
-                                                    Tec. Especial
-                                                </a>
-                                            </div>
-
-                                            <a class="w3-button w3-teal"
-                                            v-on:click.prevent="seguir()" 
-                                            v-show="jugador_combate.ganador">
-                                                <span class="fa fa-shield"></span>
-                                                Siguiente
-                                            </a>
-
-                                            <a class="w3-button w3-white"
-                                            v-on:click.prevent="volver()" 
-                                            v-show="jugador_combate.perdedor">
-                                                <span class="fa fa-chevron-left"></span>
-                                                Volver
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="w3-border w3-padding-small w3-white">
-                                        <strong>{{ jugador_combate.mensaje }}</strong>
                                     </div>
                                 </div>
 
-                                <div class="w3-black w3-opacity-min">
-                                        <div class="w3-padding-small w3-border">
-                                            <strong>Oponente - Estado</strong>
-                                        </div>
-                                        
-                                        <div class="w3-row w3-border">
-                                            <div class="w3-quarter w3-padding-small">
-                                                Salud
-                                            </div>
-    
-                                            <div class="w3-rest">
-                                                <div class="w3-light-grey">
-                                                    <div class="w3-padding-small w3-red" 
-                                                    v-bind:style="{ 'width': oponente_combate.salud_porc + '%' }">
-                                                        {{ oponente_combate.salud }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <div class="w3-row w3-border">
-                                            <div class="w3-quarter w3-padding-small">
-                                                Energia
-                                            </div>
-        
-                                            <div class="w3-rest">
-                                                <div class="w3-light-grey">
-                                                    <div class="w3-padding-small" 
-                                                    v-bind:class="oponente.energia.color"
-                                                    v-bind:style="{ 'width': oponente_combate.energia_porc + '%' }">
-                                                        {{ oponente_combate.energia }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="w3-row w3-border">
-                                            <div class="w3-quarter w3-padding-small">
-                                                Tec. Esp.
-                                            </div>
-
-                                            <div class="w3-rest w3-padding-small w3-light-gray">
-                                                {{ oponente_combate.ataques_recibidos }} / 
-                                                {{ oponente.tecnica_especial.ataques_activar }}
-                                            </div>
-                                        </div>
-
-                                        <div class="w3-row w3-border">
-                                            <div class="w3-quarter w3-padding-small">
-                                                U. accion
-                                            </div>
-    
-                                            <div class="w3-rest w3-light-gray w3-padding-small">
-                                                {{ oponente_combate.accion }}
-                                                <br>
-                                                <img style="width: 25%;"
-                                                v-bind:src="oponente.tecnica_especial.imagen"
-                                                v-bind:alt="oponente.tecnica_especial.nombre"
-                                                v-show="oponente_combate.accion == 'especial'">
-                                            </div>
-                                        </div>
-
-                                        <div class="w3-border w3-padding-small w3-white">
-                                            <strong>{{ oponente_combate.mensaje }}</strong>
-                                        </div>
+                                <div class="w3-border w3-padding-small w3-white">
+                                    <strong>{{ oponente_combate.mensaje }}</strong>
                                 </div>
                             </div>
-                            <!-- /.w3-col -->
-    
-                            <div class="w3-third w3-center">
-                                <div class="w3-border w3-padding-small w3-black">
-                                    <strong>Oponente</strong>
-                                </div>
-
-                                <vue-fichajugador
-                                v-bind:jugador="oponente"
-                                index="0"
-                                v-bind:elegido="parseInt(0)"
-                                v-bind:ver_imagen="ver_ficha_imagen">
-                                </vue-fichajugador>
-                            </div>
-                            <!-- /.w3-col -->
                         </div>
-                        <!-- /.w3-row-padding -->
+                        <!-- /.w3-third -->
+    
+                        <div class="w3-third w3-center">
+                            <div class="w3-row w3-border w3-black">
+                                <div class="w3-quarter w3-padding-small">
+                                    Salud
+                                </div>
+
+                                <div class="w3-rest">
+                                    <div class="w3-light-grey">
+                                        <div class="w3-padding-small w3-red" 
+                                        v-bind:style="{ 'width': oponente_combate.salud_porc + '%' }">
+                                            {{ oponente_combate.salud }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w3-row w3-border w3-black">
+                                <div class="w3-quarter w3-padding-small">
+                                    Energia
+                                </div>
+
+                                <div class="w3-rest">
+                                    <div class="w3-light-grey">
+                                        <div class="w3-padding-small" 
+                                        v-bind:class="oponente.energia.color"
+                                        v-bind:style="{ 'width': oponente_combate.energia_porc + '%' }">
+                                            {{ oponente_combate.energia }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <vue-fichajugador
+                            v-bind:jugador="oponente"
+                            index="0"
+                            v-bind:elegido="parseInt(0)"
+                            v-bind:ver_imagen="ver_ficha_imagen">
+                            </vue-fichajugador>
+                        </div>
+                        <!-- /.w3-third -->
+                    </div>
+                    <!-- /.w3-row-padding -->
                 </div>
                 <!-- /.w3-container -->
             </div>
